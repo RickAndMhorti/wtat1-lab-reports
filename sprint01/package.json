@@ -1,0 +1,25 @@
+{
+  "name": "sprint01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aalolexx/wtat1-lab-reborts.git"
+  },
+  "author": "Alexander Ehrenhoefer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aalolexx/wtat1-lab-reborts/issues"
+  },
+  "homepage": "https://github.com/aalolexx/wtat1-lab-reborts#readme",
+  "dependencies": {
+    "http": "^0.0.1-security",
+    "http-status-codes": "^2.2.0",
+    "lfs": "^0.0.4"
+  }
+}
