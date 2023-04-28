@@ -28,4 +28,3 @@ app.post("/homepage", savedSubmission);
 const layouts = require("express-ejs-layouts");
 app.set("view engine", "ejs");
 app.use(layouts);
-
