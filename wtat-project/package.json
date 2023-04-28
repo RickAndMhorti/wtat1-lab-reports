@@ -1,0 +1,23 @@
+{
+  "name": "wtat-project",
+  "version": "1.0.0",
+  "description": "NPM project for wtat",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aalolexx/wtat1-lab-reborts.git"
+  },
+  "author": "multiple",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aalolexx/wtat1-lab-reborts/issues"
+  },
+  "homepage": "https://github.com/aalolexx/wtat1-lab-reborts#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
