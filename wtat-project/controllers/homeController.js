@@ -2,6 +2,10 @@ exports.showHomePage = (req, res) => {
     res.render("homepage");
 };
 
+exports.ShowLogIn = (req, res) => {
+    res.render("LogIn");
+};
+
 exports.savedSubmission = (req, res) => {
 
     console.log(req.body);
