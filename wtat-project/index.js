@@ -27,7 +27,7 @@ app.listen(app.get("port"), () => {
 app.get("/homepage", showHomePage);
 app.post("/homepage", savedSubmission);
 
-app.post("/LogIn", showLogIn);
+app.get("/LogIn", showLogIn);
 app.post("/LogIn", savedSubmission);
 
 
