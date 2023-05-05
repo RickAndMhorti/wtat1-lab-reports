@@ -1,7 +1,7 @@
 const express = require("express"),
     app = express();
 
-const {showHomePage, savedSubmission} = require("./controllers/homeController");
+const {showHomePage, savedSubmission, ShowLogIn} = require("./controllers/homeController");
 
 app.use(
     express.urlencoded({
@@ -26,6 +26,10 @@ app.listen(app.get("port"), () => {
 
 app.get("/homepage", showHomePage);
 app.post("/homepage", savedSubmission);
+
+app.post("/LogIn", ShowLogIn);
+app.post("/LogIn", savedSubmission);
+
 
 // Define the eloRating variable in the global scope
 let eloRating = null;
