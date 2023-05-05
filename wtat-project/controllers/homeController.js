@@ -2,7 +2,7 @@ exports.showHomePage = (req, res) => {
     res.render("homepage");
 };
 
-exports.ShowLogIn = (req, res) => {
+exports.showLogIn = (req, res) => {
     res.render("LogIn");
 };
 

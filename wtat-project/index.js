@@ -1,7 +1,7 @@
 const express = require("express"),
     app = express();
 
-const {showHomePage, savedSubmission, ShowLogIn} = require("./controllers/homeController");
+const {showHomePage, savedSubmission, showLogIn} = require("./controllers/homeController");
 
 app.use(
     express.urlencoded({
@@ -27,7 +27,7 @@ app.listen(app.get("port"), () => {
 app.get("/homepage", showHomePage);
 app.post("/homepage", savedSubmission);
 
-app.post("/LogIn", ShowLogIn);
+app.post("/LogIn", showLogIn);
 app.post("/LogIn", savedSubmission);
 
 
