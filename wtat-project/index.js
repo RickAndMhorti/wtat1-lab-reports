@@ -1,6 +1,6 @@
 const express = require("express"),
 app = express();
-const {showHomePage, savedSubmission, showLogIn} = require("./controllers/homeController");
+const {showHomePage, savedSubmission, showLogIn, showElo} = require("./controllers/homeController");
 
 const session = require('express-session');
 app.use(session({
