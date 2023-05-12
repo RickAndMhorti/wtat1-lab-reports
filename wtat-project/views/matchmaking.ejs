@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Matchmaking</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Matchmaking</h1>
+  <p>The closest match for <%= user.username %> is:</p>
+  <ul>
+    <% if (closestMatch) { %>
+      <li><%= closestMatch.username %> (elo rating: <%= closestMatch.eloRating %>)</li>
+    <% } else { %>
+      <li>No matches found</li>
+    <% } %>
+  </ul>
+  <p><a href="/">Home</a></p>
+</body>
+</html>
