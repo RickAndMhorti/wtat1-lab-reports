@@ -52,6 +52,8 @@ app.post('/register', async (req, res) => {
     username: req.body.username,
     password: req.body.password,
     email: req.body.email,
+    region: req.body.region,
+    eloRating: req.body.eloRating,
   });
 
   try {
