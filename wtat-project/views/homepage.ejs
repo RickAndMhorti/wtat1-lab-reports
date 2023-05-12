@@ -1,7 +1,17 @@
-<form action="/homepage" method="post">
-    <label for="userELO">ELO:</label>
-    <input type="text" id="userELO" name="userElo"><br><br>
-    <label for="userRegion">Region:</label>
-    <input type="text" id="userRegion" name="userRegion"><br><br>
-    <input type="submit" value="Submit">
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chessmate</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Welcome to Chessmate!</h1>
+  <p>Find your match and have fun.</p>
+  <% if (user) { %>
+    <p>Logged in as <%= user.username %></p>
+    <p><a href="/profile">Profile</a></p>
+  <% } else { %>
+    <p><a href="/login">Login</a> or <a href="/register">Register</a></p>
+  <% } %>
+</body>
+</html>

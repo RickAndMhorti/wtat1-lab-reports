@@ -1,78 +1,105 @@
-const express = require("express"),
-app = express();
-const {showHomePage, savedSubmission, showLogIn, showElo} = require("./controllers/homeController");
-
-const mongoose= require("mongoose").default;
-
-main().catch(err => console.log(err));
-
-async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/chessmateDB', {useNewUrlParser: true});
-}
-
-const MongoDB = require("mongodb").MongoClient,
-    dbURL = "mongodb://localhost:27017",
-    dbName = "chessmate";
-
-const ChessmateDB = mongoose.model("ChessmateDB", new mongoose.Schema({
-    name: String,
-    elo: Number,
-    region: String
-}));
-
-const chessmate1 = new ChessmateDB({
-   name: "Deez Nuts",
-   elo: 4444,
-   region: "NA"
-});
-chessmate1.save();
-MongoDB.connect(dbURL, (error, client) => {
-    if (error) throw error;
-    let db = client.db(dbName);
-    db.collection("chessmate")
-        .find()
-        .toArray((error, data) => {
-            if (error) throw error;
-            console.log(data);
-        });
-
-});
-
+// Load required modules
+const express = require('express');
 const session = require('express-session');
+const mongoose = require('mongoose');
+const User = require('./models/User');
+const homeController = require('./controllers/homeController');
+//const authController = require('./controllers/authController');
+//const userController = require('./controllers/userController');
+//const matchController = require('./controllers/matchController');
+
+// Create an Express app
+const app = express();
+
+// Connect to MongoDB database
+mongoose.connect('mongodb://127.0.0.1:27017/chessmate', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+// Set up EJS as the view engine
+app.set('view engine', 'ejs');
+
+// Serve static files like the stylesheet from the 'public' directory
+app.use(express.static('public'));
+
+// Set up sessions
 app.use(session({
   secret: '1973108824',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
 }));
 
-app.use(
-    express.urlencoded({
-        extended: false
-    })
-);
-app.use(express.json());
+// Set up a parser for incoming request bodies
+app.use(express.urlencoded({ extended: true }));
 
-app.set("port", process.env.PORT || 3000);
-app.get("/", (req, res) => {
-  res.send("Welcome to Chessmate!");
-  });
+// Define the routes
+app.get('/', homeController.getHomepage);
 
-app.listen(app.get("port"), () => {
-  console.log(
-      `Server running at http://localhost:${app.get(
-          "port"
-      )}`
-  );
+app.get('/register', (req, res) => {
+  res.render('register');
 });
 
-app.get("/homepage", showHomePage);
-app.post("/homepage", savedSubmission);
+app.post('/register', async (req, res) => {
+  // Validate email address
+  const emailRegex = /^\S+@\S+\.\S+$/;
+  if (!emailRegex.test(req.body.email)) {
+    return res.render('register', { error: 'Invalid email address' });
+  }
 
-app.get("/LogIn", showLogIn);
-app.post("/LogIn", savedSubmission);
+  // Create new user
+  const user = new User({
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email,
+    region: req.body.region,
+    eloRating: req.body.eloRating,
+  });
 
-app.get('/elo-rating', showElo);
+  try {
+    await user.save();
+    req.session.user = user;
+    res.redirect('/');
+  } catch (err) {
+    console.error(err);
+    res.render('register', { error: 'Error registering user' });
+  }
+});
 
-const layouts = require("express-ejs-layouts");
-app.set("view engine", "ejs");
-app.use(layouts);
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  const user = await User.findOne({ username, password });
+  if (user) {
+    req.session.user = user;
+    res.redirect('/');
+  } else {
+    res.render('login', { error: 'Invalid username or password' });
+  }
+});
+
+app.get('/profile', (req, res) => {
+  if (req.session.user) {
+    res.render('profile', { user: req.session.user });
+  } else {
+    res.redirect('/login');
+  }
+});
+
+app.get('/matchmaking', async (req, res) => {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  }
+
+  const currentUser = await User.findById(req.session.user._id);
+  const otherUsers = await User.find({ _id: { $ne: currentUser._id } }).sort({ eloRating: 1 }).limit(1);
+
+  res.render('matchmaking', { user: currentUser, otherUsers });
+});
+
+app.listen(3000, () => {
+  console.log('Server started on port 3000');
+});
