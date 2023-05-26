@@ -7,9 +7,11 @@ const mongoose = require('mongoose').default;
 const homeController = require('./controllers/homeController');
 const registerController = require('./controllers/registerController');
 const loginController = require('./controllers/loginController');
+const logoutController = require('./controllers/logoutController');
 const userController = require('./controllers/userController');
 const authController = require('./controllers/authController');
 const matchController = require('./controllers/matchController');
+const {logout} = require("./controllers/logoutController");
 
 // Create an Express app
 const app = express();
@@ -49,6 +51,9 @@ app.post('/register', registerController.postRegisterPage);
 //Login page
 app.get('/login', loginController.getLoginPage);
 app.post('/login', loginController.postLoginPage);
+
+//Logout page
+app.get('/logout', logoutController.getLogoutPage);
 
 //Profile page
 app.get('/profile', userController.getUserPage);
