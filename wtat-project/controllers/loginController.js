@@ -6,7 +6,7 @@ const getLoginPage = ((req, res) => {
 
 const postLoginPage = (async (req, res) => {
     const { username, password } = req.body;
-    const user = await User.findOne({ username, password });
+    const user = await User.findOne({ username, password }).populate('region');
     if (user) {
         req.session.user = user;
         res.redirect('/');

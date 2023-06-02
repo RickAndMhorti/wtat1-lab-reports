@@ -17,8 +17,9 @@ const userSchema = new mongoose.Schema({
     match: /^\S+@\S+\.\S+$/
   },
   region: {
-    type: String,
-    required: false
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'Region'
   },
   eloRating: {
     type: Number,
