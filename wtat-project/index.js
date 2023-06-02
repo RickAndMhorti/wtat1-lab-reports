@@ -9,9 +9,8 @@ const registerController = require('./controllers/registerController');
 const loginController = require('./controllers/loginController');
 const logoutController = require('./controllers/logoutController');
 const userController = require('./controllers/userController');
-const authController = require('./controllers/authController');
+//const authController = require('./controllers/authController');
 const matchController = require('./controllers/matchController');
-const {logout} = require("./controllers/logoutController");
 
 // Create an Express app
 const app = express();
@@ -62,6 +61,7 @@ app.get('/profile', userController.getUserPage);
 app.get('/matchmaking', matchController.getMatchPage);
 
 //Init server
-app.listen(3000, () => {
-  console.log('Server started on port 3000');
+const port = 3000;
+app.listen(port, () => {
+  console.log('Server started on port ' + port);
 });

@@ -6,6 +6,11 @@ const getUserPage = ((req, res) => {
     }
 })
 
+const displayAllUsers = ((req, res) => {
+
+
+})
+
 module.exports = {
     getUserPage
 }
