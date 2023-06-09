@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit User Profile</title>
+</head>
+<body>
+  <h1>Edit User Profile</h1>
+  <form action="/users/update/<%= user._id %>?_method=PUT" method="POST">
+    <label for="username">Name:</label>
+    <input type="text" id="username" name="username" value="<%= user.username %>"><br><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="<%= user.email %>"><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" value="<%= user.password %>"><br><br>
+    <label for="region">Region:</label>
+    <input type="text" id="region" name="region" value="<%= user.region.name %>"><br><br>
+    <label for="eloRating">Elo rating:</label>
+    <input type="number" id="eloRating" name="eloRating" value="<%= user.eloRating %>"><br><br>
+    <input type="submit" value="Update Profile">
+  </form>
+</body>
+</html>

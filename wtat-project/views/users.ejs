@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User List</title>
+</head>
+<body>
+  <h1>User List</h1>
+  <% if (users.length === 0) { %>
+    <p>No users found.</p>
+  <% } else { %>
+    <ul>
+      <% users.forEach(function(user) { %>
+        <li>
+          <%= user.username %> - <%= user.email %>
+          <form method="POST" action="/users/delete/<%= user._id %>" onsubmit="return confirm('Are you sure you want to delete this user?')">
+            <button type="submit">Delete</button>
+          </form>
+        </li>
+      <% }); %>
+    </ul>
+  <% } %>
+</body>
+</html>

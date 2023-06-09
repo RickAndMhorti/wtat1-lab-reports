@@ -60,6 +60,10 @@ app.get('/profile', userController.getUserPage);
 //Match page
 app.get('/matchmaking', matchController.getMatchPage);
 
+app.get('/users', userController.displayAllUsers); 
+app.post('/users/update/:id', userController.updateUser); 
+app.post('/users/delete/:id', userController.deleteUser); 
+
 //Init server
 const port = 3000;
 app.listen(port, () => {
