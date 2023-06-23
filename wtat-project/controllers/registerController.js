@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const Region = require("../models/Region");
 const User = require("../models/User");
 
@@ -42,10 +43,13 @@ const postRegisterPage = (async (req, res) => {
       region = await newRegion.save();
     }
 
+    // Hash password
+    const hash = bcrypt.hashSync(req.body.password, 10);
+
     // Create new user
     const user = new User({
         username: req.body.username,
-        password: req.body.password,
+        password: hash,
         email: req.body.email,
         region: region, 
         eloRating: req.body.eloRating,

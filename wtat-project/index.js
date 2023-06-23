@@ -2,6 +2,9 @@
 const express = require('express');
 const session = require('express-session');
 const mongoose = require('mongoose').default;
+const passport = require('passport');
+const bcrypt = require('bcrypt');
+var LocalStrategy = require('passport-local');
 
 // Route to controllers
 const homeController = require('./controllers/homeController');
@@ -40,6 +43,16 @@ app.use(session({
 // Set up a parser for incoming request bodies
 app.use(express.urlencoded({ extended: true }));
 
+// Set up Passport.js
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+passport.deserializeUser(function(user, done) {
+  req.session.user = user;
+  done(null, user);
+});
+passport.use(new LocalStrategy(loginController.verifyUser));
+
 // Define the routes
 app.get('/', homeController.getHomepage);
 
@@ -49,7 +62,10 @@ app.post('/register', registerController.postRegisterPage);
 
 //Login page
 app.get('/login', loginController.getLoginPage);
-app.post('/login', loginController.postLoginPage);
+app.post('/login', passport.authenticate('local', {
+  successRedirect: '/users',
+  failureRedirect: '/login'
+}));
 
 //Logout page
 app.get('/logout', logoutController.getLogoutPage);

@@ -35,7 +35,8 @@ const updateUser = async (req, res) => {
 
         user.username = username;
         user.email = email;
-        user.password = password;
+        const hash = bcrypt.hashSync(password, 10);
+        user.password = hash;
         user.region.name = region;
         user.eloRating = eloRating;
 
