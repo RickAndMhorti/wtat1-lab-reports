@@ -20,3 +20,4 @@ const MatchSchema = new mongoose.Schema({
 
 const Match = mongoose.model('Match', MatchSchema);
 module.exports = Match;
+
