@@ -12,8 +12,29 @@ const registerController = require('./controllers/registerController');
 const loginController = require('./controllers/loginController');
 const logoutController = require('./controllers/logoutController');
 const userController = require('./controllers/userController');
-//const authController = require('./controllers/authController');
 const matchController = require('./controllers/matchController');
+
+$(document).ready(function() {
+  // Handle button click to open the modal
+  $('#modal-button').click(function() {
+    // Make an Ajax request to fetch the modal content
+    $.ajax({
+      url: '/users/fetch-modal-content',
+      method: 'GET',
+      success: function(response) {
+        // Populate the modal body with the fetched content
+        $('.modal-body').html(response);
+
+        // Show the modal
+        $('#myModal').modal('show');
+      },
+      error: function() {
+        // Handle error if the Ajax request fails
+        alert('Error fetching modal content.');
+      }
+    });
+  });
+});
 
 // Create an Express app
 const app = express();

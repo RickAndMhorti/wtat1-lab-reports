@@ -189,6 +189,15 @@ const createMatch = (req, res) => {
   });
 };
 
+// Fetch modal content
+exports.fetchModalContent = (req, res) => {
+  // Fetch the content for the modal (can be retrieved from the database, an API, or any other source)
+  const modalContent = '<p>This is the content for the modal.</p>';
+
+  // Send the modal content as a response
+  res.send(modalContent);
+};
+
 module.exports = {
     getUserPage,
     displayAllUsers,

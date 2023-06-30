@@ -13,4 +13,10 @@ router.post('/users/update/:id', userController.updateUser);
 // Delete a user
 router.post('/users/delete/:id', userController.deleteUser);
 
+// Get a user by ID
+router.get('/users/:id', userController.getUserById);
+
+// Fetch modal content
+router.get('/fetch-modal-content', userController.fetchModalContent);
+
 module.exports = router;
