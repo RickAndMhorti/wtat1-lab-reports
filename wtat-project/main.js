@@ -85,22 +85,3 @@ const port = 3000;
 app.listen(port, () => {
   console.log('Server started on port ' + port);
 });
-
-// Define API routes
-const apiRouter = express.Router();
-
-// Users API
-apiRouter.get('/users', userController.getAllUsers);
-apiRouter.get('/users/:id', userController.getUser);
-apiRouter.put('/users/:id', userController.updateUser);
-apiRouter.delete('/users/:id', userController.deleteUser);
-
-// Matches API
-apiRouter.get('/matches', matchController.getAllMatches);
-apiRouter.get('/matches/:id', matchController.getMatch);
-apiRouter.post('/matches', matchController.createMatch);
-apiRouter.put('/matches/:id', matchController.updateMatch);
-apiRouter.delete('/matches/:id', matchController.deleteMatch);
-
-// Mount the API router
-app.use('/api', apiRouter);
